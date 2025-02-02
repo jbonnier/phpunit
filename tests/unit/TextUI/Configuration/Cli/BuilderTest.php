@@ -930,6 +930,26 @@ final class BuilderTest extends TestCase
         $configuration->junitLogfile();
     }
 
+    #[TestDox('--log-markdown file')]
+    public function testLogMarkdown(): void
+    {
+        $configuration = (new Builder)->fromParameters(['--log-markdown', 'file']);
+
+        $this->assertTrue($configuration->hasMarkdownLogfile());
+        $this->assertSame('file', $configuration->markdownLogfile());
+    }
+
+    public function testLogMarkdownMayNotBeConfigured(): void
+    {
+        $configuration = (new Builder)->fromParameters([]);
+
+        $this->assertFalse($configuration->hasMarkdownLogfile());
+
+        $this->expectException(Exception::class);
+
+        $configuration->markdownLogfile();
+    }
+
     #[TestDox('--log-teamcity file')]
     public function testLogTeamcity(): void
     {

@@ -23,13 +23,15 @@ use PHPUnit\TextUI\XmlConfiguration\Logging\TestDox\Text as TestDoxText;
 final readonly class Logging
 {
     private ?Junit $junit;
+    private ?Markdown $markdown;
     private ?TeamCity $teamCity;
     private ?TestDoxHtml $testDoxHtml;
     private ?TestDoxText $testDoxText;
 
-    public function __construct(?Junit $junit, ?TeamCity $teamCity, ?TestDoxHtml $testDoxHtml, ?TestDoxText $testDoxText)
+    public function __construct(?Junit $junit, ?Markdown $markdown, ?TeamCity $teamCity, ?TestDoxHtml $testDoxHtml, ?TestDoxText $testDoxText)
     {
         $this->junit       = $junit;
+        $this->markdown    = $markdown;
         $this->teamCity    = $teamCity;
         $this->testDoxHtml = $testDoxHtml;
         $this->testDoxText = $testDoxText;
@@ -50,6 +52,23 @@ final readonly class Logging
         }
 
         return $this->junit;
+    }
+
+    public function hasMarkdown(): bool
+    {
+        return $this->markdown !== null;
+    }
+
+    /**
+     * @throws Exception
+     */
+    public function markdown(): Markdown
+    {
+        if ($this->markdown === null) {
+            throw new Exception('Logger "Markdown" is not configured');
+        }
+
+        return $this->markdown;
     }
 
     public function hasTeamCity(): bool

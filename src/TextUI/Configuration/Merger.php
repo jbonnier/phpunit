@@ -528,6 +528,7 @@ final readonly class Merger
 
         $logfileTeamcity             = null;
         $logfileJunit                = null;
+        $logfileMarkdown             = null;
         $logfileTestdoxHtml          = null;
         $logfileTestdoxText          = null;
         $loggingFromXmlConfiguration = true;
@@ -546,6 +547,12 @@ final readonly class Merger
             $logfileJunit = $cliConfiguration->junitLogfile();
         } elseif ($loggingFromXmlConfiguration && $xmlConfiguration->logging()->hasJunit()) {
             $logfileJunit = $xmlConfiguration->logging()->junit()->target()->path();
+        }
+
+        if ($cliConfiguration->hasMarkdownLogfile()) {
+            $logfileMarkdown = $cliConfiguration->markdownLogfile();
+        } elseif ($loggingFromXmlConfiguration && $xmlConfiguration->logging()->hasMarkdown()) {
+            $logfileMarkdown = $xmlConfiguration->logging()->markdown()->target()->path();
         }
 
         if ($cliConfiguration->hasTestdoxHtmlFile()) {
@@ -874,6 +881,7 @@ final readonly class Merger
             $resolveDependencies,
             $logfileTeamcity,
             $logfileJunit,
+            $logfileMarkdown,
             $logfileTestdoxHtml,
             $logfileTestdoxText,
             $logEventsText,

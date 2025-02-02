@@ -19,6 +19,7 @@
 
     <logging>
         <junit outputFile="php://stdout"/>
+        <markdown outputFile="php://stdout"/>
         <teamcity outputFile="php://stdout"/>
         <testdoxHtml outputFile="php://stdout"/>
         <testdoxText outputFile="php://stdout"/>

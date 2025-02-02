@@ -28,6 +28,7 @@ final readonly class ConvertLogTypes implements Migration
         }
         $types = [
             'junit'        => 'junit',
+            'markdown'     => 'markdown',
             'teamcity'     => 'teamcity',
             'testdox-html' => 'testdoxHtml',
             'testdox-text' => 'testdoxText',

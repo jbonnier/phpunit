@@ -31,6 +31,7 @@ use PHPUnit\Framework\TestCase;
 use PHPUnit\Framework\TestSuite;
 use PHPUnit\Logging\EventLogger;
 use PHPUnit\Logging\JUnit\JunitXmlLogger;
+use PHPUnit\Logging\Markdown\MarkdownLogger;
 use PHPUnit\Logging\TeamCity\TeamCityLogger;
 use PHPUnit\Logging\TestDox\HtmlRenderer as TestDoxHtmlRenderer;
 use PHPUnit\Logging\TestDox\PlainTextRenderer as TestDoxTextRenderer;
@@ -646,6 +647,23 @@ final readonly class Application
                     sprintf(
                         'Cannot log test results in JUnit XML format to "%s": %s',
                         $configuration->logfileJunit(),
+                        $e->getMessage(),
+                    ),
+                );
+            }
+        }
+
+        if ($configuration->hasLogfileMarkdown()) {
+            try {
+                new MarkdownLogger(
+                    OutputFacade::printerFor($configuration->logfileMarkdown()),
+                    EventFacade::instance(),
+                );
+            } catch (DirectoryDoesNotExistException|InvalidSocketException $e) {
+                EventFacade::emitter()->testRunnerTriggeredWarning(
+                    sprintf(
+                        'Cannot log test results in Markdown format to "%s": %s',
+                        $configuration->logfileMarkdown(),
                         $e->getMessage(),
                     ),
                 );

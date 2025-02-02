@@ -261,6 +261,9 @@ final class LoaderTest extends TestCase
         $this->assertTrue($logging->hasJunit());
         $this->assertSame(TEST_FILES_PATH . 'junit.xml', $logging->junit()->target()->path());
 
+        $this->assertTrue($logging->hasMarkdown());
+        $this->assertSame(TEST_FILES_PATH . 'markdown.xml', $logging->markdown()->target()->path());
+
         $this->assertTrue($logging->hasTeamCity());
         $this->assertSame(TEST_FILES_PATH . 'teamcity.txt', $logging->teamCity()->target()->path());
 
